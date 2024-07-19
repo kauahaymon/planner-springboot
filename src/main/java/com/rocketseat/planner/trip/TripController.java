@@ -31,4 +31,10 @@ public class TripController {
         Optional<Trip> updatedTrip = this.tripService.updateTrip(id, payload);
         return updatedTrip.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
+
+    @GetMapping("/confirm/{id}")
+    public ResponseEntity<Trip> confirmTrip(@PathVariable UUID id) {
+        Optional<Trip> confirmTrip = this.tripService.confirmTrip(id);
+        return confirmTrip.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    }
 }

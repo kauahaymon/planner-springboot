@@ -8,6 +8,6 @@ public class PlannerApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(PlannerApplication.class, args);
+		System.out.println("--> Finished! <--");
 	}
-
 }
