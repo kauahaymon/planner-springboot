@@ -26,4 +26,17 @@ public class TripService {
     public Optional<Trip> getTripDetails(UUID id) {
         return this.tripRepository.findById(id);
     }
+
+    public Optional<Trip> updateTrip(UUID id, TripRequestPayload payload) {
+        Optional<Trip> trip = this.tripRepository.findById(id);
+        if (trip.isPresent()) {
+            Trip updatedTrip = trip.get();
+            updatedTrip.setDestination(payload.destination());
+            updatedTrip.setStartsAt(payload.starts_at());
+            updatedTrip.setEndsAt(payload.ends_at());
+            this.tripRepository.save(updatedTrip);
+            return Optional.of(updatedTrip);
+        }
+        return Optional.empty();
+    }
 }
