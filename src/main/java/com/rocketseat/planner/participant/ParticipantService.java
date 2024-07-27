@@ -53,6 +53,20 @@ public class ParticipantService {
         return null;
     }
 
+    // Retrieve Participants
+    public List<ParticipantData> getAllParticipantsFromTrip(UUID id) {
+        return this.participantRepository
+                .findByTripId(id)
+                .stream()
+                .map(
+                        participant -> new ParticipantData(
+                        participant.getId(),
+                        participant.getName(),
+                        participant.getEmail(),
+                        participant.getIsConfirmed())
+                )
+                .toList();
+    }
 
     public void registerParticipantsToEvent(List<String> participantsToInvite, Trip trip) {
         List<Participant> participants = participantsToInvite.stream().map(email -> new Participant(email, trip)).toList();
