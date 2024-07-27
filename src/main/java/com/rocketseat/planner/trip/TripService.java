@@ -21,6 +21,8 @@ public class TripService {
         Trip newTrip = new Trip(payload);
         this.tripRepository.save(newTrip);
         this.participantService.registerParticipantsToEvent(payload.emails_to_invite(), newTrip);
+
+        if (newTrip.getIsConfirmed()) this.participantService.triggerEmailConfirmationToParticipant(payload.owner_email());
         return new TripResponse(newTrip.getId());
     }
 
