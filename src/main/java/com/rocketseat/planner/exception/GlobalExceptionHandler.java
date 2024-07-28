@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import java.time.Instant;
 import java.util.Objects;
@@ -46,4 +47,18 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(status).body(response);
     }
 
+    // No Resource Found
+    @ExceptionHandler(NoResourceFoundException.class)
+    public ResponseEntity<StandardErrorResponse> handleNoResourceFound(NoResourceFoundException e, HttpServletRequest request) {
+        int status = HttpStatus.NOT_FOUND.value();
+        String error = "Resource Not Found";
+        StandardErrorResponse response = new StandardErrorResponse(
+                Instant.now(),
+                status,
+                error,
+                e.getMessage(),
+                request.getRequestURI()
+        );
+        return ResponseEntity.status(status).body(response);
+    }
 }
