@@ -5,6 +5,7 @@ import com.rocketseat.planner.trip.TripRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -29,5 +30,18 @@ public class ActivityService {
         }
 
         return null;
+    }
+
+    // Retrieve Activity Details
+    public List<ActivityData> getAllActivitiesFromTrip(UUID id) {
+        return this.repository
+                .findByTripId(id)
+                .stream()
+                .map(activity -> new ActivityData(
+                        activity.getId(),
+                        activity.getTitle(),
+                        activity.getOccursAt())
+                )
+                .toList();
     }
 }
