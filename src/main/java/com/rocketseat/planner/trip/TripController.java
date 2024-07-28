@@ -4,6 +4,9 @@ import com.rocketseat.planner.activity.ActivityData;
 import com.rocketseat.planner.activity.ActivityRequestPayload;
 import com.rocketseat.planner.activity.ActivityResponse;
 import com.rocketseat.planner.activity.ActivityService;
+import com.rocketseat.planner.link.LinkRequestPayload;
+import com.rocketseat.planner.link.LinkResponse;
+import com.rocketseat.planner.link.LinkService;
 import com.rocketseat.planner.participant.ParticipantData;
 import com.rocketseat.planner.participant.ParticipantRequestPayload;
 import com.rocketseat.planner.participant.ParticipantResponse;
@@ -29,7 +32,10 @@ public class TripController {
     @Autowired
     private ActivityService activityService;
 
-    // TRIP
+    @Autowired
+    private LinkService linkService;
+
+    // TRIPS
     @PostMapping
     public ResponseEntity<TripResponse> createNewTrip(@RequestBody TripRequestPayload payload) {
         TripResponse tripResponse = this.tripService.createNewTrip(payload);
@@ -54,7 +60,7 @@ public class TripController {
         return confirmTrip.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    // PARTICIPANT
+    // PARTICIPANTS
     @PostMapping("/invite/{tripId}")
     public ResponseEntity<ParticipantResponse> inviteParticipant(@PathVariable UUID tripId, @RequestBody ParticipantRequestPayload payload) {
         ParticipantResponse participantResponse = this.participantService.inviteParticipant(tripId, payload);
@@ -82,5 +88,14 @@ public class TripController {
     public ResponseEntity<List<ActivityData>> getAllActivities(@PathVariable UUID id) {
         List<ActivityData> activityDataList = this.activityService.getAllActivitiesFromTrip(id);
         return ResponseEntity.ok(activityDataList);
+    }
+
+    // LINKS
+    @PostMapping("/{id}/links")
+    public ResponseEntity<LinkResponse> registerLink(@PathVariable UUID id, @RequestBody LinkRequestPayload payload) {
+        LinkResponse linkResponse = this.linkService.registerLink(id, payload);
+        return Optional.ofNullable(linkResponse)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 }
