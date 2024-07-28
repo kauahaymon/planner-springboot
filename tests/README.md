@@ -1,0 +1,1 @@
+Import this file: [Insomnia_2024-07-15.json](Insomnia_2024-07-15.json) to your Insomnia app to test the application endpoints and requests.
