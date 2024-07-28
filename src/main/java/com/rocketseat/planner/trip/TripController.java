@@ -47,19 +47,25 @@ public class TripController {
     @GetMapping("/{tripId}")
     public ResponseEntity<Trip> getTripDetails(@PathVariable UUID tripId) {
         Optional<Trip> optionalTrip = this.tripService.getTripDetails(tripId);
-        return optionalTrip.map(ResponseEntity::ok).orElseThrow(() -> new ResourceNotFoundException("Id Not Found"));
+        return optionalTrip
+                .map(ResponseEntity::ok)
+                .orElseThrow(() -> new ResourceNotFoundException("Trip Id Not Found"));
     }
 
     @PutMapping("/{tripId}")
     public ResponseEntity<Trip> updateTrip(@PathVariable UUID tripId, @RequestBody TripRequestPayload payload) {
         Optional<Trip> updatedTrip = this.tripService.updateTrip(tripId, payload);
-        return updatedTrip.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+        return updatedTrip
+                .map(ResponseEntity::ok)
+                .orElseThrow(() -> new ResourceNotFoundException("Trip Id Not Found"));
     }
 
     @GetMapping("/{tripId}/confirm")
     public ResponseEntity<Trip> confirmTrip(@PathVariable UUID tripId) {
         Optional<Trip> confirmTrip = this.tripService.confirmTrip(tripId);
-        return confirmTrip.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+        return confirmTrip
+                .map(ResponseEntity::ok)
+                .orElseThrow(() -> new ResourceNotFoundException("Trip Id Not Found"));
     }
 
     // PARTICIPANTS
@@ -68,7 +74,7 @@ public class TripController {
         ParticipantResponse participantResponse = this.participantService.inviteParticipant(tripId, payload);
         return Optional.ofNullable(participantResponse)
                 .map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+                .orElseThrow(() -> new ResourceNotFoundException("Trip Id Not Found"));
     }
 
     @GetMapping("/{tripId}/participants")
@@ -83,7 +89,7 @@ public class TripController {
         ActivityResponse responseEntity = this.activityService.registerActivity(tripId, payload);
         return Optional.ofNullable(responseEntity)
                 .map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+                .orElseThrow(() -> new ResourceNotFoundException("Trip Id Not Found"));
     }
 
     @GetMapping("/{tripId}/activities")
@@ -98,7 +104,7 @@ public class TripController {
         LinkResponse linkResponse = this.linkService.registerLink(tripId, payload);
         return Optional.ofNullable(linkResponse)
                 .map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+                .orElseThrow(() -> new ResourceNotFoundException("Trip Id Not Found"));
     }
 
     @GetMapping("/{tripId}/links")
