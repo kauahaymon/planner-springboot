@@ -6,6 +6,7 @@ import com.rocketseat.planner.trip.TripService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -30,5 +31,17 @@ public class LinkService {
             return new LinkResponse(newLink.getId());
         }
         return null;
+    }
+
+    // Retrieve Links
+    public List<LinkData> getAllLinksFromTrip(UUID tripId) {
+        return this.repository
+                .findByTripId(tripId)
+                .stream()
+                .map(link -> new LinkData(
+                        link.id(),
+                        link.title(),
+                        link.url()))
+                .toList();
     }
 }
