@@ -17,7 +17,7 @@ public class ParticipantController {
     @Autowired
     private ParticipantService participantService;
 
-    @PostMapping("/confirm/{participantId}")
+    @PostMapping("/{participantId}/confirm")
     public ResponseEntity<Participant> confirmParticipant(@PathVariable UUID participantId, @RequestBody ParticipantRequestPayload payload) {
         Optional<Participant> participant = this.participantService.confirmParticipant(participantId, payload);
         return participant.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());

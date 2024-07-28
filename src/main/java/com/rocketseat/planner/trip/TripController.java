@@ -55,14 +55,14 @@ public class TripController {
         return updatedTrip.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @GetMapping("/confirm/{tripId}")
+    @GetMapping("/{tripId}/confirm")
     public ResponseEntity<Trip> confirmTrip(@PathVariable UUID tripId) {
         Optional<Trip> confirmTrip = this.tripService.confirmTrip(tripId);
         return confirmTrip.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     // PARTICIPANTS
-    @PostMapping("/invite/{tripId}")
+    @PostMapping("/{tripId}/invite")
     public ResponseEntity<ParticipantResponse> inviteParticipant(@PathVariable UUID tripId, @RequestBody ParticipantRequestPayload payload) {
         ParticipantResponse participantResponse = this.participantService.inviteParticipant(tripId, payload);
         return Optional.ofNullable(participantResponse)
@@ -70,7 +70,7 @@ public class TripController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @GetMapping("/participants/{tripId}")
+    @GetMapping("/{tripId}/participants")
     public ResponseEntity<List<ParticipantData>> retrieveParticipants(@PathVariable UUID tripId) {
         List<ParticipantData> participantData = this.participantService.getAllParticipantsFromTrip(tripId);
         return ResponseEntity.ok(participantData);
@@ -85,24 +85,24 @@ public class TripController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @GetMapping("/{id}/activities")
-    public ResponseEntity<List<ActivityData>> getAllActivities(@PathVariable UUID id) {
-        List<ActivityData> activityDataList = this.activityService.getAllActivitiesFromTrip(id);
+    @GetMapping("/{tripId}/activities")
+    public ResponseEntity<List<ActivityData>> getAllActivities(@PathVariable UUID tripId) {
+        List<ActivityData> activityDataList = this.activityService.getAllActivitiesFromTrip(tripId);
         return ResponseEntity.ok(activityDataList);
     }
 
     // LINKS
-    @PostMapping("/{id}/links")
-    public ResponseEntity<LinkResponse> registerLink(@PathVariable UUID id, @RequestBody LinkRequestPayload payload) {
-        LinkResponse linkResponse = this.linkService.registerLink(id, payload);
+    @PostMapping("/{tripId}/links")
+    public ResponseEntity<LinkResponse> registerLink(@PathVariable UUID tripId, @RequestBody LinkRequestPayload payload) {
+        LinkResponse linkResponse = this.linkService.registerLink(tripId, payload);
         return Optional.ofNullable(linkResponse)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @GetMapping("/{id}/links")
-    public ResponseEntity<List<LinkData>> getAllLinks(@PathVariable UUID id) {
-        List<LinkData> linkDataList = this.linkService.getAllLinksFromTrip(id);
+    @GetMapping("/{tripId}/links")
+    public ResponseEntity<List<LinkData>> getAllLinks(@PathVariable UUID tripId) {
+        List<LinkData> linkDataList = this.linkService.getAllLinksFromTrip(tripId);
         return ResponseEntity.ok(linkDataList);
     }
 }
