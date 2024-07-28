@@ -1,5 +1,8 @@
 package com.rocketseat.planner.trip;
 
+import com.rocketseat.planner.activity.ActivityRequestPayload;
+import com.rocketseat.planner.activity.ActivityResponse;
+import com.rocketseat.planner.activity.ActivityService;
 import com.rocketseat.planner.participant.ParticipantData;
 import com.rocketseat.planner.participant.ParticipantRequestPayload;
 import com.rocketseat.planner.participant.ParticipantResponse;
@@ -21,6 +24,9 @@ public class TripController {
 
     @Autowired
     private ParticipantService participantService;
+
+    @Autowired
+    private ActivityService activityService;
 
     // TRIP
     @PostMapping
@@ -60,5 +66,14 @@ public class TripController {
     public ResponseEntity<List<ParticipantData>> retrieveParticipants(@PathVariable UUID tripId) {
         List<ParticipantData> participantData = this.participantService.getAllParticipantsFromTrip(tripId);
         return ResponseEntity.ok(participantData);
+    }
+
+    // ACTIVITIES
+    @PostMapping("/{tripId}/activities")
+    public ResponseEntity<ActivityResponse> registerActivity(@PathVariable UUID tripId, @RequestBody ActivityRequestPayload payload) {
+        ActivityResponse responseEntity = this.activityService.registerActivity(tripId, payload);
+        return Optional.ofNullable(responseEntity)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 }
