@@ -4,6 +4,7 @@ import com.rocketseat.planner.activity.ActivityData;
 import com.rocketseat.planner.activity.ActivityRequestPayload;
 import com.rocketseat.planner.activity.ActivityResponse;
 import com.rocketseat.planner.activity.ActivityService;
+import com.rocketseat.planner.exception.ResourceNotFoundException;
 import com.rocketseat.planner.link.LinkData;
 import com.rocketseat.planner.link.LinkRequestPayload;
 import com.rocketseat.planner.link.LinkResponse;
@@ -46,7 +47,7 @@ public class TripController {
     @GetMapping("/{tripId}")
     public ResponseEntity<Trip> getTripDetails(@PathVariable UUID tripId) {
         Optional<Trip> optionalTrip = this.tripService.getTripDetails(tripId);
-        return optionalTrip.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+        return optionalTrip.map(ResponseEntity::ok).orElseThrow(() -> new ResourceNotFoundException("Id Not Found"));
     }
 
     @PutMapping("/{tripId}")
