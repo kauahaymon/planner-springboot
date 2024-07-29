@@ -41,11 +41,11 @@ This project was developed during the NLW Journey week from RocketSeat. The base
 
 ## Conceptual Model
 
-![Conceptual Model](path/to/conceptual-model-image)
+![Conceptual Model](https://github.com/kauahaymon/illustrative-images/blob/master/planner-model.svg)
 
 ## Database Diagram
 
-![Database Diagram](path/to/database-diagram-image)
+![Database Diagram](https://github.com/kauahaymon/illustrative-images/blob/master/planner-dbdiagram.svg)
 
 ## Trip Entity
 
