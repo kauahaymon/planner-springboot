@@ -1,5 +1,7 @@
 # Plann.er - Travel Itinerary Application
 
+[![NPM License](https://img.shields.io/npm/l/react)](https://github.com/kauahaymon/planner-springboot/blob/main/LICENSE)
+
 ## About the Project
 
 This project is a fully back-end application designed to help users organize their travels for work, holidays, or weekend leisure.
