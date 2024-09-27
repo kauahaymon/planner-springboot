@@ -1,4 +1,4 @@
-package com.rocketseat.planner.trip;
+package com.rocketseat.planner.entities.trip;
 
 import java.util.UUID;
 

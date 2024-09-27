@@ -1,6 +1,6 @@
-package com.rocketseat.planner.link;
+package com.rocketseat.planner.entities.link;
 
-import com.rocketseat.planner.trip.Trip;
+import com.rocketseat.planner.entities.trip.Trip;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,5 +1,9 @@
-package com.rocketseat.planner.participant;
+package com.rocketseat.planner.controllers;
 
+import com.rocketseat.planner.entities.participant.Participant;
+import com.rocketseat.planner.entities.participant.ParticipantRequestPayload;
+import com.rocketseat.planner.services.ParticipantService;
+import com.rocketseat.planner.repositories.ParticipantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
